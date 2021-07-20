@@ -16,11 +16,17 @@ const Row = styled.div`
         justify-content: center;
         align-items: center;
         border: 1px solid black;
+        border-right: none;
+        border-bottom: none;
         width: 60px;
         height: 60px;
+        &:last-child {
+            border-right: 1px solid black;
+        }
     }
     &:last-child {
         justify-content: flex-end;
+        border-bottom: 1px solid black;
     }
     & #id_17 {
         flex-grow: 2;
