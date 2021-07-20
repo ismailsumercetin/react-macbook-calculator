@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Key from "./Key";
+import Keys from "./Keys";
 
 const Calculator = styled.div`
   display: inline-flex;
@@ -18,7 +18,7 @@ function App() {
   return (
     <Wrapper>
       <Calculator>
-        <Key />
+        <Keys />
       </Calculator>
     </Wrapper>
   );

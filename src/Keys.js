@@ -33,14 +33,24 @@ const Row = styled.div`
     }
 `;
 
-function Key() {
-    let i = 0;
-    let template_id = 'id_';
+export default function Keys() {
+    const template_id = 'id_';
+    
+    const Box = props => (<div 
+        id={template_id+(props.index)} 
+        className='key'
+        onClick={(e) => console.log(e.target.innerText)}>{props.propKey}</div>);
+    
+
     const renderKeys = () => {
+        let i = 0;
         return KEYS.map(keyArr => {
-            const keys = keyArr.map(key => <div id={template_id+(++i)} class='key'>{key}</div>)
+            const keys = keyArr.map(key => {
+                i++;
+                return <Box propKey={key} index={i} />;
+            });
             return (<Row>{keys}</Row>);
-        })
+        });
     }
 
     return (
@@ -49,5 +59,3 @@ function Key() {
         </>
     );
 };
-
-export default Key;
