@@ -33,13 +33,13 @@ const Row = styled.div`
     }
 `;
 
-export default function Keys() {
+export default function Keys({handleKeyClick}) {
     const template_id = 'id_';
     
     const Box = props => (<div 
         id={template_id+(props.index)} 
         className='key'
-        onClick={(e) => console.log(e.target.innerText)}>{props.propKey}</div>);
+        onClick={(e) => handleKeyClick(e)}>{props.propKey}</div>);
     
 
     const renderKeys = () => {
