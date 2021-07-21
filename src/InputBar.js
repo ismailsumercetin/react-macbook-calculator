@@ -5,22 +5,22 @@ const InputDiv = styled.div`
     display: flex;
     width: 243px;
     height: 60px;
-    border: 1px solid black;
     border-radius: 5px 5px 0px 0px;
-    border-bottom: none;
+    background: #012c2e;
     text-align: right;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: center;
     & input {
-        color: black;
+        color: white;
     }
 `;
 
 const Input = styled.input`
+    font-family: Roboto;
     outline: none;
     border: none;
-    background-color: white;
-    width: 100%;
+    background: #012c2e;
+    width: 95%;
     font-size: 40px;
     text-align: right;
 `;
@@ -35,21 +35,7 @@ export default function InputBar({clickedKey}) {
                 inputRef.current.value += clickedKey;
                 break;
             case false:
-                switch(clickedKey) {
-                    case 'AC':
-                    case '+/-':
-                    case '%':
-                    case '/':
-                    case 'x':
-                    case '-':
-                    case '+':
-                    case '=':
-                    case ',':
-                        console.log(clickedKey);
-                        break;
-                    default:
-                        return '';
-                }
+                console.log(clickedKey);
                 break;
             default:
                 return '';
