@@ -28,8 +28,11 @@ export const Row = styled.div`
     }
 
     &:first-child {
-        border-top: none;
         background: darkslategray;
+
+        & .key {
+            border-top: none;
+        }
     }
 
     &:not(:first-child) {
