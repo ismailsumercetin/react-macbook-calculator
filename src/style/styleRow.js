@@ -24,7 +24,7 @@ export const Row = styled.div`
     }
 
     & .key:active {
-        background: lightgray;
+        background: #133030;
     }
 
     &:first-child {
