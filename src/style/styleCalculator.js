@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Calculator = styled.div`
   display: inline-flex;
   flex-direction: column;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-box-shadow: -11px 11px 32px 13px rgba(0,0,0,0.3); 
+  box-shadow: -11px 11px 32px 13px rgba(0,0,0,0.3);
 `;
 
 export const Wrapper = styled.div`
