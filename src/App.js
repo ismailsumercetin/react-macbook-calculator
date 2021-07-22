@@ -10,13 +10,12 @@ function App() {
     const pressedKey = e.target.innerText;
     const isNumber = !isNaN(parseInt(pressedKey));
     if (isNumber) {
-      console.log(inputState);
       if (inputState.operator === '+/-' || inputState.operator === '%') {
         setDefaultState(pressedKey);
         return;
       }
       
-      if (!inputState.finalInput && inputState.prevInput && (inputState.operator === '+' || inputState.operator === '-')) {
+      if (!inputState.finalInput && inputState.prevInput && (inputState.operator && inputState.operator !== '+/-' && inputState.operator !== '%')) {
         setInputState({ prevInput: pressedKey, finalInput: inputState.prevInput, operator: inputState.operator });
         return;
       }
@@ -70,11 +69,18 @@ function App() {
       const currentInput = parseFloat(inputState.prevInput);
       const prevInput = parseFloat(inputState.finalInput);
 
+      let calculatedVal;
       if(inputState.operator === '+') {
-        setInputState({ prevInput: '' + (prevInput + currentInput), finalInput: '', operator: pressedKey });
+        calculatedVal = prevInput + currentInput;
       } else if(inputState.operator === '-') {
-        setInputState({ prevInput: '' + (prevInput - currentInput), finalInput: '', operator: pressedKey });
+        calculatedVal = prevInput - currentInput;
+      } else if(inputState.operator === '/') {
+        calculatedVal = prevInput / currentInput;
+      } else if(inputState.operator === 'x') {
+        calculatedVal = prevInput * currentInput;
       }
+
+      setInputState({ prevInput: '' + calculatedVal, finalInput: '', operator: pressedKey });
     } else {
       setOperator(pressedKey);
     }
