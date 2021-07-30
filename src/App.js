@@ -1,13 +1,15 @@
 import InputBar from "./InputBar";
 import Keys from "./Keys";
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Calculator, Wrapper } from './style/styleCalculator';
 
 function App() {
   const [inputState, setInputState] = useState({ prevInput: '0', finalInput: '', operator: '' });
+  const VALID_KEYCODES = [37, 43, 45, 47, 120];
 
-  const handleKeyClick = (e) => {
-    const pressedKey = e.target.innerText;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleKeyClick = useCallback((e) => {
+    const pressedKey = getPressedKey(e);
     const isNumber = !isNaN(parseInt(pressedKey));
     if (isNumber) {
       if (inputState.operator === '+/-' || inputState.operator === '%') {
@@ -20,8 +22,7 @@ function App() {
         return;
       }
 
-      const handleFirstNum = inputState.prevInput === '0' ? pressedKey : inputState.prevInput + pressedKey;
-      setInputState({ ...inputState, prevInput: handleFirstNum });
+      setInputState({ ...inputState, prevInput: handleFirstNum(pressedKey) });
     } else {
       switch(pressedKey) {
         case 'AC':
@@ -44,7 +45,10 @@ function App() {
           return '';
       }
     }
-  }
+  })
+
+  // Check if number or any operator is pressed, get mouse clicks otherwise
+  const getPressedKey = (e) => (e.keyCode >= 48 && e.keyCode <= 57) || (VALID_KEYCODES.indexOf(e.keyCode) >= 0) ? e.key : e.target.innerText;
 
   const setDefaultState = (pressedKey = '0') => {
     setInputState({ prevInput: pressedKey, finalInput: '', operator: '' });
@@ -85,6 +89,16 @@ function App() {
       setOperator(pressedKey);
     }
   }
+
+  const handleFirstNum = pressedNum => inputState.prevInput === '0' ? pressedNum : inputState.prevInput + pressedNum;
+
+  useEffect(() => {
+    document.addEventListener('keypress', handleKeyClick);
+
+    return () => {
+      document.removeEventListener('keypress', handleKeyClick);
+    };
+  }, [handleKeyClick]);
 
   return (
     <Wrapper>
