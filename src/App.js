@@ -5,7 +5,7 @@ import { Calculator, Wrapper } from './style/styleCalculator';
 
 function App() {
   const [inputState, setInputState] = useState({ prevInput: '0', finalInput: '', operator: '' });
-  const VALID_KEYCODES = [37, 43, 45, 47, 120];
+  const VALID_KEYCODES = [8, 52, 53, 55, 88, 189];
   const OPERATIONS = {
     '+': (prevInput, currentInput) => prevInput + currentInput,
     '-': (prevInput, currentInput) => prevInput - currentInput,
@@ -23,6 +23,7 @@ function App() {
         return;
       }
       
+      // If any operator is selected and no finalInput, prevInput'll be final value
       if (!inputState.finalInput && inputState.prevInput && (inputState.operator && inputState.operator !== '+/-' && inputState.operator !== '%')) {
         setInputState({ prevInput: pressedKey, finalInput: inputState.prevInput, operator: inputState.operator });
         return;
@@ -47,11 +48,16 @@ function App() {
         case 'x':
           performOperation(pressedKey);
           break;
+        case 'Backspace':
+          deleteLast();
+          break;
         default:
           return '';
       }
     }
   })
+
+  const deleteLast = () => setInputState({ ...inputState, prevInput: inputState.prevInput.slice(0, -1).length === 0 ? '0' : inputState.prevInput.slice(0, -1)});
 
   // Check if number or any operator is pressed, get mouse clicks otherwise
   const getPressedKey = (e) => (e.keyCode >= 48 && e.keyCode <= 57) || (VALID_KEYCODES.indexOf(e.keyCode) >= 0) ? e.key : e.target.innerText;
@@ -83,10 +89,10 @@ function App() {
   const handleFirstNum = pressedNum => inputState.prevInput === '0' ? pressedNum : inputState.prevInput + pressedNum;
 
   useEffect(() => {
-    document.addEventListener('keypress', handleKeyClick);
+    document.addEventListener('keydown', handleKeyClick);
 
     return () => {
-      document.removeEventListener('keypress', handleKeyClick);
+      document.removeEventListener('keydown', handleKeyClick);
     };
   }, [handleKeyClick]);
 
