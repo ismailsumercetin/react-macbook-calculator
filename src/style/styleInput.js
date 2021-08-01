@@ -11,7 +11,7 @@ export const InputContainer = styled.div`
     justify-content: center;
     & input {
         color: white;
-}
+    }
 `;
 
 export const Input = styled.input`

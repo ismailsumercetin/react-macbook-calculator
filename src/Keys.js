@@ -13,9 +13,7 @@ export default function Keys({ handleKeyClick, currentInput }) {
     const keyRef = useRef();
     const template_id = 'id_';
     
-    useEffect(() => {
-        currentInput !== '0' ? keyRef.current.innerText = 'C' : keyRef.current.innerText = 'AC';
-    });
+    useEffect(() => currentInput !== '0' ? keyRef.current.innerText = 'C' : keyRef.current.innerText = 'AC');
 
     const renderKeys = () => {
         let i = 0;
@@ -37,8 +35,6 @@ export default function Keys({ handleKeyClick, currentInput }) {
     }
 
     return (
-        <>
-            {renderKeys()}
-        </>
+        <>{renderKeys()}</>
     );
 };
