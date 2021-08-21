@@ -5,7 +5,9 @@ import { Calculator, Wrapper } from './style/styleCalculator';
 
 function App() {
   const [inputState, setInputState] = useState({ prevInput: '0', finalInput: '', operator: '' });
-  const VALID_KEYCODES = [8, 52, 53, 55, 88, 189];
+  const VALID_KEYS = ['0', '1', '2', '3', '4', '5',
+                      '6', '7', '8', '9', 'Backspace',
+                      '+', '%', '/', 'x', '*', '-'];
   const OPERATIONS = {
     '+': (prevInput, currentInput) => prevInput + currentInput,
     '-': (prevInput, currentInput) => prevInput - currentInput,
@@ -60,7 +62,7 @@ function App() {
   const deleteLast = () => setInputState({ ...inputState, prevInput: inputState.prevInput.slice(0, -1).length === 0 ? '0' : inputState.prevInput.slice(0, -1)});
 
   // Check if number or any operator is pressed, get mouse clicks otherwise
-  const getPressedKey = e => (e.keyCode >= 48 && e.keyCode <= 57) || (VALID_KEYCODES.indexOf(e.keyCode) >= 0) ? e.key : e.target.innerText;
+  const getPressedKey = e => (e.key && VALID_KEYS.indexOf(e.key) !== -1) ? e.key : e.target.innerText;
 
   const setDefaultState = (pressedKey = '0') => setInputState({ prevInput: pressedKey, finalInput: '', operator: '' });
 
