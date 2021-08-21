@@ -13,7 +13,7 @@
     "hosted-git-info": "^2.8.9",
     "is-svg": "^4.3.1",
     "path-parse": "^1.0.7",
-    "postcss": "^8.3.6",
+    "postcss": "^7.0.36",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
