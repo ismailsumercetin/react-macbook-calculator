@@ -55,4 +55,8 @@ export const Row = styled.div`
         border-bottom-left-radius: 5px;
         flex-grow: 2;
     }
+
+    & .key[val="${props => props.currentOperator === '*' ? 'x' : props.currentOperator}"] {
+        background: #133030;
+    }
 `;

@@ -104,7 +104,7 @@ function App() {
     <Wrapper>
       <InputBar {...inputState} />
       <Calculator>
-        <Keys currentInput={inputState.prevInput} handleKeyClick={handleKeyClick} />
+        <Keys currentOperator={inputState.operator} currentInput={inputState.prevInput} handleKeyClick={handleKeyClick} />
       </Calculator>
     </Wrapper>
   );

@@ -9,7 +9,7 @@ const KEYS = [
     ['0', ',', '='],
 ];
 
-export default function Keys({ handleKeyClick, currentInput }) {
+export default function Keys({ currentOperator, currentInput, handleKeyClick }) {
     const keyRef = useRef();
     const template_id = 'id_';
     
@@ -23,6 +23,7 @@ export default function Keys({ handleKeyClick, currentInput }) {
                 const attr = {
                     id: template_id+i,
                     className: 'key',
+                    val: key
                 };
 
                 if (i === 1) attr.ref = keyRef;
@@ -30,7 +31,7 @@ export default function Keys({ handleKeyClick, currentInput }) {
                 return (<div {...attr} onClick={(e) => handleKeyClick(e)}>{key}</div>);
             });
 
-            return (<Row>{keys}</Row>);
+            return (<Row currentOperator={currentOperator}>{keys}</Row>);
         });
     }
 
