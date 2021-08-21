@@ -12,7 +12,8 @@ function App() {
     '+': (prevInput, currentInput) => prevInput + currentInput,
     '-': (prevInput, currentInput) => prevInput - currentInput,
     '/': (prevInput, currentInput) => prevInput / currentInput,
-    'x': (prevInput, currentInput) => prevInput * currentInput
+    'x': (prevInput, currentInput) => prevInput * currentInput,
+    '*': (prevInput, currentInput) => prevInput * currentInput
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,6 +49,7 @@ function App() {
         case '-':
         case '/':
         case 'x':
+        case '*':
           performOperation(pressedKey);
           break;
         case 'Backspace':
