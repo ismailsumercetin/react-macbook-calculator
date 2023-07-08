@@ -1,21 +1,14 @@
 import { Row } from './style/styleRow';
 import { useEffect, useRef } from 'react';
-
-const KEYS = [
-    ['AC', '+/-', '%', '/'],
-    ['7', '8', '9', 'x'],
-    ['4', '5', '6', '-'],
-    ['1', '2', '3', '+'],
-    ['0', ',', '='],
-];
+import { KEYS } from './constants';
 
 export default function Keys({ currentOperator, currentInput, handleKeyClick }) {
     const keyRef = useRef();
     const template_id = 'id_';
-    
-    useEffect(() => currentInput !== '0' ? keyRef.current.innerText = 'C' : keyRef.current.innerText = 'AC');
 
-    const renderKeys = () => {
+    useEffect(() => currentInput !== '0' ? keyRef.current.innerText = 'C' : keyRef.current.innerText = 'AC');
+
+    const KeyList = () => {
         let i = 0;
         return KEYS.map(keyArr => {
             const keys = keyArr.map(key => {
@@ -35,7 +28,5 @@ export default function Keys({ currentOperator, currentInput, handleKeyClick }) 
         });
     }
 
-    return (
-        <>{renderKeys()}</>
-    );
+    return <KeyList />;
 };

@@ -1,34 +1,25 @@
 import InputBar from "./InputBar";
 import Keys from "./Keys";
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Calculator, Wrapper } from './style/styleCalculator';
+import { VALID_KEYS, OPERATIONS } from "./constants";
 
 function App() {
   const [inputState, setInputState] = useState({ prevInput: '0', finalInput: '', operator: '' });
-  const VALID_KEYS = ['0', '1', '2', '3', '4', '5',
-                      '6', '7', '8', '9', 'Backspace',
-                      '+', '%', '/', 'x', '*', '-'];
-  const OPERATIONS = {
-    '+': (prevInput, currentInput) => prevInput + currentInput,
-    '-': (prevInput, currentInput) => prevInput - currentInput,
-    '/': (prevInput, currentInput) => prevInput / currentInput,
-    'x': (prevInput, currentInput) => prevInput * currentInput,
-    '*': (prevInput, currentInput) => prevInput * currentInput
-  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleKeyClick = useCallback((e) => {
+  const handleKeyClick = (e) => {
     const pressedKey = getPressedKey(e);
     const isNumber = !isNaN(parseInt(pressedKey));
-    if (isNumber) {
-      if (inputState.operator === '+/-' || inputState.operator === '%') {
+    if (isNumber) {
+      if (inputState.operator === '+/-' || inputState.operator === '%') {
         setDefaultState(pressedKey);
         return;
       }
-      
+
       // If any operator is selected and no finalInput, prevInput'll be final value
-      if (!inputState.finalInput && inputState.prevInput && (inputState.operator && inputState.operator !== '+/-' && inputState.operator !== '%')) {
-        setInputState({ prevInput: pressedKey, finalInput: inputState.prevInput, operator: inputState.operator });
+      if (!inputState.finalInput && inputState.prevInput && (inputState.operator && inputState.operator !== '+/-' && inputState.operator !== '%')) {
+        setInputState({ prevInput: pressedKey, finalInput: inputState.prevInput, operator: inputState.operator });
         return;
       }
 
@@ -37,6 +28,7 @@ function App() {
       switch(pressedKey) {
         case 'AC':
         case 'C':
+        case 'c':
           setDefaultState();
           break;
         case '+/-':
@@ -59,7 +51,7 @@ function App() {
           return '';
       }
     }
-  })
+  }
 
   const deleteLast = () => setInputState({ ...inputState, prevInput: inputState.prevInput.slice(0, -1).length === 0 ? '0' : inputState.prevInput.slice(0, -1)});
 
@@ -81,7 +73,7 @@ function App() {
   const setOperator = pressedKey => setInputState({ ...inputState, operator: pressedKey });
 
   const performOperation = pressedKey => {
-    if (inputState.operator && inputState.finalInput && inputState.operator !== '+/-' && inputState.operator !== '%') {
+    if (inputState.operator && inputState.finalInput && inputState.operator !== '+/-' && inputState.operator !== '%') {
       const calculatedVal = OPERATIONS[inputState.operator](parseFloat(inputState.finalInput), parseFloat(inputState.prevInput));
 
       setInputState({ prevInput: '' + calculatedVal, finalInput: '', operator: pressedKey });
